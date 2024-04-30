@@ -9,7 +9,7 @@ let myBalance : number = 0
 let answers = await inquirer.prompt(
     [
         {
-            name: "Student Name",
+            name: "student",
             type: "input",
             message: "Enter your Name",
             validate: function(Value){
@@ -23,18 +23,20 @@ let answers = await inquirer.prompt(
             name: "Courses",
             type: "list",
             message: "Select your Course",
-            choices: ["HTML5" , "CSS3" , "Type Script" , "JavaScript"]
+            choices: ["HTML5" , "CSS3" , "TypeScript" , "JavaScript"]
         }
     ]
 );
 
-const tutionFee = { [key : string] : number } = {
-    "HTML5" : 2500,
-    "CSS3" : 3000,
-    "Type Script" : 4500,
-    "JavaScript" : 5000
+const tutionFee : {[key: string]: number} = {
+    "HTML5": 2500,
+    "CSS3": 3000,
+    "TypeScript": 4500,
+    "JavaScript" : 5000,
 };
 console.log(`\nTution Fees is: ${tutionFee[answers.Courses]}/-\n`);
+console.log(`Your payable amount is: ${myBalance}\n`);
+
 
 let paymentType = await inquirer.prompt(
     [
@@ -44,6 +46,7 @@ let paymentType = await inquirer.prompt(
             message: "Select your Pyament method",
             choices: ["Bank Transfer" , "East Paisa" , "Jazz Cash"]
         },
+        
         {
             name: "Amount",
             type: "input",
@@ -57,4 +60,37 @@ let paymentType = await inquirer.prompt(
         }
     ]
 );
-console.log(`\nYou Selected the Payment Method: ${paymentType.payment}`);
+console.log(`\nYou Selected the Payment Method: ${paymentType.payment}\n`);
+
+const tutionFees = tutionFee[answers.Courses];
+const paymentAmount = parseFloat(paymentType.Amount)
+
+if(tutionFees === paymentAmount){
+    console.log(`Congratulation you had successfull enrolled in ${answers.Courses}`);  
+      
+
+let ans = await inquirer.prompt([
+    {
+        name: "select",
+        type: "list",
+        message: "What would like to do next?",
+        choices: ["View Status" , "Exit the Portal"]
+    }
+])
+
+if(ans.select === "View Status"){
+    console.log("\n****** STATUS ******\n");
+    console.log(`Student Name: ${answers.student}\n`);
+    console.log(`Student ID number: ${randomNumer}\n`);
+    console.log(`Course Enrolled for: ${answers.Courses}\n`);
+    console.log(`Tuution fees Paid: ${paymentAmount}\n`);
+    console.log(`Balance amount: ${myBalance += ans.paymentAmount}`);       
+}else{
+    console.log("\n Exiting Student Management System \n");
+    
+}
+
+}else{
+    console.log("you have to course fee in full");
+    
+}
