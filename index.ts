@@ -37,7 +37,7 @@ const tutionFee : {[key: string]: number} = {
     "JavaScript" : 5000,
 };
 console.log(`\nTution Fees is: ${tutionFee[answers.Courses]}/-\n`);
-console.log(`Your payable amount is: ${myBalance}\n`);
+console.log(`\nYour payable amount is: ${myBalance}\n`);
 
 
 let paymentType = await inquirer.prompt(
